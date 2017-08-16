@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  list: one
+  competitor: one
+  start_number: 1
+  score: 9.99
+  place: 1
+  ex_points: 9.99
+
+two:
+  list: two
+  competitor: two
+  start_number: 1
+  score: 9.99
+  place: 1
+  ex_points: 9.99
