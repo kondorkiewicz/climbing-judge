@@ -1,0 +1,9 @@
+<tbody>
+  <tr id='<%= competitor.id %>'>
+    <td><%= competitor.name %></td>
+    <td><%= competitor.surname %></td>
+    <td><%= competitor.club %></td>
+    <td><%= link_to "Delete", delete_competitor_event_path(@event, competitor_id: competitor.id), 
+            class: 'btn btn-xs btn-danger delete', remote: true %></td>
+  </tr>
+</tbody>

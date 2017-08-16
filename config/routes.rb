@@ -8,6 +8,13 @@ Rails.application.routes.draw do
   resources :users, only: :create
   resources :sessions, only: :create
   
-  resources :events
+  resources :events do 
+    member do 
+      get 'competitors'
+      get 'delete_competitor'
+      get 'add_competitor'
+    end 
+  end 
+  
   resources :competitors
 end

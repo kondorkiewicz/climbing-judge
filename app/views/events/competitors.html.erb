@@ -1,0 +1,45 @@
+<% content_for :menu_items do %>
+  <li><p class="navbar-btn"><%= link_to 'Competitors', competitors_event_path, class: 'btn btn-sm btn-success disabled' %></p></li>
+  
+  <li><%# link_to 'Eliminations',  eliminations_event_path %></li>
+<% end %>
+
+<div class="container-fluid">
+
+  <div class="row">
+    
+    <div class="col-sm-5">
+      <div class="panel panel-primary">
+        <div class="panel-heading text-center"><strong>Search in database</strong></div>
+        <div class="panel-body text-center">
+          <%= form_tag competitors_event_path, method: :get, id: "competitors_search", remote: true do %>
+            <p>
+              <%= text_field_tag :search, params[:search] %>
+              
+            </p>
+          <% end %>
+        </div>
+      </div>
+      
+      <div class="hidden" id="competitors_from_db">
+          <%= render partial: 'competitors', object: @competitors_from_db   %>
+      </div>
+      
+      <%= render partial: 'competitors/form', object: Competitor.new, as: :competitor, locals: {event_id: @event.id} %>
+    </div>
+  
+    <div class="col-sm-7">
+        
+          <div class="hidden" id="event_men">
+            <%= render partial: 'delete_competitors', locals: { competitors: @event.men, name: "Men" } %> 
+          </div>
+      
+          <div class="hidden" id="event_women">
+            <%= render partial: 'delete_competitors', locals: {competitors: @event.women, name: "Women"} %>
+          </div>
+      
+    </div>
+    
+  </div>
+</div>
+

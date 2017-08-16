@@ -1,0 +1,18 @@
+$("tr#<%= @competitor.id %>").remove();
+$('#event_men').html('<%= j render partial: "delete_competitors", locals: {competitors: @event.men, name: "Men"} %>');
+$('#event_women').html('<%= j render partial: "delete_competitors", locals: {competitors: @event.women, name: "Women"} %>');
+
+if($('#event_men tr').size() === 1) {
+  $('#event_men').addClass('hidden');
+} else {
+  $('#event_men').removeClass('hidden');
+}
+
+if($('#event_women tr').size() === 1) {
+  $('#event_women').addClass('hidden');
+} else {
+  $('#event_women').removeClass('hidden');
+}
+
+
+$("#eliminations").load(location.href+" #eliminations>*","");
