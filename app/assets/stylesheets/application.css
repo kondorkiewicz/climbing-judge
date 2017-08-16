@@ -12,4 +12,47 @@
  *
  *= require_tree .
  *= require_self
+ *= require bootstrap.min
  */
+
+ .page-header {
+   height: 30px;
+   margin-bottom: 0px;
+   margin-top: 10px;
+   padding: 0;
+ }
+
+ .hidden {
+  display: none;
+ }
+
+ .round_menu
+ {
+    width:100%;
+    text-align: center;
+    margin-bottom: 20px;
+ }
+ .round_button
+ {
+    display: inline-block;
+ }
+
+ .navbar-toggle {
+    z-index:3;
+ }
+
+ .nav >li >a {
+  padding-top: 30px;
+  padding-bottom: 30px;
+ }
+ .navbar-toggle {
+  padding: 10px;
+  margin: 25px 15px 25px 0;
+ }
+
+ .navbar-btn {
+  padding-top: 20px;
+  margin-right: 5px;
+ }
+
+

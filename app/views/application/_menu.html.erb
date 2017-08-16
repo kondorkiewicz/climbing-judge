@@ -1,0 +1,42 @@
+<nav class="navbar navbar-default" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+    
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+     
+      <ul class="nav navbar-nav navbar-left">
+        <a href="/" class="navbar-brand">
+          <%= image_tag('tw-small.png', style: "display: inline-block;") %>
+          <p class="navbar-text">Climbing Judge</p>
+        </a>
+        <li><p class="navbar-btn"><%= link_to "Events", events_path, class: "btn btn-sm btn-info" %></p></li>
+        <li><p class="navbar-btn"><%= link_to "Competitors", competitors_path, class: "btn btn-sm btn-info" %></li>
+        <% if current_user && current_user.admin %>
+        <li>
+          <p class="navbar-btn"><%= link_to 'Create Event', new_event_path, class: 'btn btn-sm btn-success' %></p>
+        </li>
+        <% end %>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <% if content_for? :menu_items %>
+          <%= yield(:menu_items) %> 
+        <% end %>
+            
+        <% if current_user.nil? %>
+          <li><%= link_to 'Sign Up', signup_path %></li>
+          <li><%= link_to "Log In", login_path %></li>
+        <% else %>
+        <li><%= link_to "Log Out", logout_path, method: :delete %>
+         <% end %>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+</nav>
