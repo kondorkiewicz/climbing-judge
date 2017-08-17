@@ -1,7 +1,7 @@
 <% content_for :menu_items do %>
   <li><p class="navbar-btn"><%= link_to 'Competitors', competitors_event_path, class: 'btn btn-sm btn-success disabled' %></p></li>
   
-  <li><%# link_to 'Eliminations',  eliminations_event_path %></li>
+  <li><p class="navbar-btn"><%= link_to 'Eliminations',  create_eliminations_lists_event_path, class: 'btn btn-sm btn-success' %></p></li>
 <% end %>
 
 <div class="container-fluid">

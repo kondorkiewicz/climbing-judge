@@ -10,11 +10,15 @@ Rails.application.routes.draw do
   
   resources :events do 
     member do 
-      get 'competitors'
-      get 'delete_competitor'
-      get 'add_competitor'
+      get 'competitors', controller: 'event_competitors'
+      get 'delete_competitor', controller: 'event_competitors'
+      get 'add_competitor', controller: 'event_competitors'
+      get 'create_eliminations_lists', to: 'lists#create_eliminations_lists'
+      get 'eliminations'
     end 
   end 
+  
+  
   
   resources :competitors
 end

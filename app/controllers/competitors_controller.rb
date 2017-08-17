@@ -5,7 +5,7 @@ class CompetitorsController < ApplicationController
     @event = Event.find(params[:event_id])
     respond_to do |format|
       if @competitor.save
-        @event.competitors << @competitor
+        @event.competitors << @competitor if @event
         format.html { redirect_to competitors_event_path(@event), success: 'Competitor was successfully created.' }
         format.json { render :show, status: :created, location: @competitor }
       else

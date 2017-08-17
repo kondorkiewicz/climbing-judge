@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170816125326) do
+ActiveRecord::Schema.define(version: 20170817120801) do
 
   create_table "competitors", force: :cascade do |t|
     t.string   "name"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20170816125326) do
     t.string   "round"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "sex"
     t.index ["event_id"], name: "index_lists_on_event_id"
   end
 
