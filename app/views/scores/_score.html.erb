@@ -1,0 +1,11 @@
+<tbody>
+  <%= form_for score, remote: true do %>
+    <tr>
+      <td><%= score.start_number %></td>
+      <td><%= score.competitor.name %> <%= score.competitor.surname %></td>
+      <td><%= text_field_tag :score, nil, size: 3 %></td>
+      <td><%= hidden_field_tag(:event_id, params[:id]) %></td>
+      <td><%= submit_tag 'save score', class: 'btn btn-sm btn-primary', method: :patch %></td>
+    </tr>
+  <% end %>
+</tbody>
