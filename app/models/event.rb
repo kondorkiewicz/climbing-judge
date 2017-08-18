@@ -10,4 +10,8 @@ class Event < ApplicationRecord
     competitors.where(sex: 'F')
   end
   
+  def round(round, sex)
+    lists.where("round = ? AND sex = ?", round, sex).take.scores.sort_by { |score| score.start_number }
+  end
+  
 end
