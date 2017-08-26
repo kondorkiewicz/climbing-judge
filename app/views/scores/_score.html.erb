@@ -1,11 +1,18 @@
+<% score.score == 0 ? show_score = nil : show_score = score.score %> 
 <tbody>
-  <%= form_for score, remote: true do %>
     <tr>
       <td><%= score.start_number %></td>
       <td><%= score.competitor.name %> <%= score.competitor.surname %></td>
-      <td><%= text_field_tag :score, nil, size: 3 %></td>
-      <td><%= hidden_field_tag(:event_id, params[:id]) %></td>
-      <td><%= submit_tag 'save score', class: 'btn btn-sm btn-primary', method: :patch %></td>
+      <td><%= form_for score, remote: true do %>
+        <table>
+          <tr>
+            <td><%= text_field_tag :score, show_score, size: 3 %></td>
+            <td class="col-md-1"><%= submit_tag 'save score', class: 'btn btn-sm btn-primary', method: :patch %></td>
+            <td><%= hidden_field_tag(:event_id, params[:id]) %></td>
+          <% end %>
+          <tr>
+        </table>
+      </td>
     </tr>
-  <% end %>
+  
 </tbody>

@@ -14,45 +14,62 @@
  *= require_self
  *= require bootstrap.min
  */
-
- .page-header {
-   height: 30px;
-   margin-bottom: 0px;
-   margin-top: 10px;
-   padding: 0;
+ ul.nav li.danger, ul.nav li.danger:hover { color: #ff0000; }
+ ul.nav li.action, ul.nav li.action:hover { color: GreenYellow; }
+ 
+ #m1, #f1, #m2, #f2, #m, #f {
+   display: none;
  }
 
- .hidden {
-  display: none;
+ #competitors tr, #events tr {
+   cursor: pointer;
  }
-
- .round_menu
- {
-    width:100%;
-    text-align: center;
-    margin-bottom: 20px;
- }
- .round_button
- {
-    display: inline-block;
- }
-
- .navbar-toggle {
-    z-index:3;
- }
-
- .nav >li >a {
-  padding-top: 30px;
-  padding-bottom: 30px;
- }
- .navbar-toggle {
-  padding: 10px;
-  margin: 25px 15px 25px 0;
- }
-
- .navbar-btn {
-  padding-top: 20px;
-  margin-right: 5px;
- }
+ 
+ body,html,.row-offcanvas {
+  height:100%;
+}
 
 
+#sidebar {
+  width: inherit;
+  min-width: 220px;
+  max-width: 220px;
+  background-color:#f5f5f5;
+  float: left;
+  height:100%;
+  position:relative;
+  overflow-y:auto;
+  overflow-x:hidden;
+}
+#main {
+  height:100%;
+  overflow:auto;
+}
+
+/*
+ * off Canvas sidebar
+ * --------------------------------------------------
+ */
+@media screen and (max-width: 768px) {
+  .row-offcanvas {
+    position: relative;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+    width:calc(100% + 220px);
+  }
+    
+  .row-offcanvas-left
+  {
+    left: -220px;
+  }
+
+  .row-offcanvas-left.active {
+    left: 0;
+  }
+
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+  }
+}

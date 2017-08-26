@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170817120801) do
+ActiveRecord::Schema.define(version: 20170825090831) do
 
   create_table "competitors", force: :cascade do |t|
     t.string   "name"
@@ -27,11 +27,25 @@ ActiveRecord::Schema.define(version: 20170817120801) do
     t.integer "competitor_id", null: false
   end
 
+  create_table "eliminations_results", force: :cascade do |t|
+    t.integer "place"
+    t.integer "competitor_id"
+    t.integer "event_id"
+    t.decimal "points"
+    t.integer "first_route_place"
+    t.integer "second_route_place"
+    t.index ["competitor_id"], name: "index_eliminations_results_on_competitor_id"
+    t.index ["event_id"], name: "index_eliminations_results_on_event_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.string   "name"
     t.string   "place"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.string   "status"
+    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "lists", force: :cascade do |t|
@@ -40,7 +54,19 @@ ActiveRecord::Schema.define(version: 20170817120801) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "sex"
+    t.string   "name"
     t.index ["event_id"], name: "index_lists_on_event_id"
+  end
+
+  create_table "results", force: :cascade do |t|
+    t.integer  "event_id"
+    t.integer  "competitor_id"
+    t.integer  "place"
+    t.integer  "points"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["competitor_id"], name: "index_results_on_competitor_id"
+    t.index ["event_id"], name: "index_results_on_event_id"
   end
 
   create_table "scores", force: :cascade do |t|

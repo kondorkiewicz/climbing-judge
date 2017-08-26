@@ -1,0 +1,15 @@
+<div class="panel panel-primary">
+  <div class="panel-heading text-center"><strong>Events</strong></div>
+  <div class="panel-body">
+    <table id="events" class="table table-condensed table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Place</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <%= render partial: 'event', collection: events, as: :event %>
+    </table>
+  </div>
+</div>

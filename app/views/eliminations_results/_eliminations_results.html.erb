@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+  <div class="panel-heading"><h4><%= local_assigns[:name] %></h4></div>
+  <div class="panel-body">
+    <table class="table table-condensed table-hover">
+      <thead>
+        <tr>
+          <th>Place:</th>
+          <th>Name:</th>
+          <th>1st route place:</th>
+          <th>2nd route place:</th>
+          <th>Points:</th>
+        </tr>
+      </thead>  
+    <%= render partial: 'eliminations_result', collection: eliminations_results, as: :result %>
+    </table>
+  </div>
+</div>

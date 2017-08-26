@@ -1,0 +1,49 @@
+<% content_for :sidebar do %>
+  <div id="compute_results">
+    <li class="active list-group-item"><%= @event.status.titleize %><br>
+    (scores remaining: <%= scores_remaining([@m, @f]) %>)</li>
+    <% if enough_scores?([@m, @f]) %>
+      <% if @event.status == "finals" %>
+        <li class="list-group-item"><%= link_to "Competitions Results", compute_results_event_path, 
+                class: 'btn btn-md btn-success' %></li>
+      <% else %>
+      <li class="list-group-item"><%= link_to "Create Finals Lists", create_finals_lists_event_path(comps_number: 8), 
+              class: 'btn btn-md btn-success' %></li>
+      <% end %>
+    <% end %>
+  </div>
+  <a href='#' id='m-btn' class='list-group-item'>Men</a>
+  <a href='#' id='f-btn' class='list-group-item'>Women</a>  
+  <li class="active list-group-item">Starting Lists (PDF)</li>
+  <% @event.lists.where(round: "#{@m.round}").each do |list| %>
+    <%= link_to "#{list.name}", list_path(list, format: "pdf"),
+                  class: 'list-group-item' %>
+  <% end %>
+  <li class="active list-group-item danger">Danger</li>
+  <%= link_to "Delete #{@event.status.titleize} lists", send("delete_#{@event.status}_lists_event_path"), class: 'list-group-item',
+                data: { confirm: "Are you sure?" } %>
+<% end %>
+  
+<div class="row" id="m">
+
+  <div id="m_scores" class="col-md-6">
+    <%= render partial: 'scores/scores', locals: {scores: @m.start_list, name: "#{@m.name} scores" } %> 
+  </div>
+
+  <div id="m_res" class="col-md-6">
+    <%= render partial: 'scores/results', locals: {results: @m.results, name: "#{@m.name} results" } %> 
+  </div>
+
+</div>
+
+<div class="row" id="f">
+  
+  <div id="f_scores" class="col-md-6">
+    <%= render partial: 'scores/scores', locals: {scores: @f.start_list, name: "#{@f.name} scores" } %> 
+  </div>
+
+  <div id="f_res" class="col-md-6">
+    <%= render partial: 'scores/results', locals: {results: @f.results, name: "#{@f.name} results" } %>
+  </div>
+    
+</div>

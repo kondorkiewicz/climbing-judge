@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  event: one
+  competitor: one
+  place: 1
+  points: 1
+
+two:
+  event: two
+  competitor: two
+  place: 1
+  points: 1

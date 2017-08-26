@@ -1,0 +1,9 @@
+<tbody>
+  <tr id="<%= result.id %>" data-href="<%= event_path(result.event) %>">
+    <td><%= result.event.name %></td>
+    <td><%= result.event.place %></td>
+    <td><%= result.event.created_at.strftime("%d/%m/%y") %></td>
+    <td><%= result.place %></td>
+    <td><%= result.points %></td>
+  </tr>
+</tbody>

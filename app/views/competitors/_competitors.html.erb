@@ -1,0 +1,15 @@
+<div class="panel panel-primary">
+  <div class="panel-heading text-center"><strong><%= local_assigns[:name] %></strong></div>
+  <div class="panel-body">
+    <table id="competitors" class="table table-condensed table-hover">
+      <thead>
+        <tr>
+          <th>Firstname</th>
+          <th>Lastname</th>
+          <th>Club</th>
+        </tr>
+      </thead>
+      <%= render partial: 'competitors/competitor', collection: competitors, as: :competitor %>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="panel panel-primary">
+  <div class="panel-heading text-center"><strong><%= @competitor.name %> <%= @competitor.surname %></strong></div>
+  <div class="panel-body">
+    <table id="competitors" class="table table-condensed table-hover">
+      <thead>
+        <tr>
+          <th>Event name</th>
+          <th>Event place</th>
+          <th>Event date</th>
+          <th>Place</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <%= render partial: 'competitors/competitor_result', collection: @results, as: :result %>
+    </table>
+  </div>
+</div>

@@ -1,8 +1,14 @@
 class EventCompetitorsController < ApplicationController
   before_action :set_event
+  before_action :authorize_event
   
   def competitors 
-    @competitors_from_db = Competitor.search(params[:search]) 
+    if @event.status != "competitors"
+      redirect_to send("#{@event.status}_event_path"),
+              flash: { warning: 'You need to delete scores from a round you are currently in to go back!'}
+    else
+      @competitors_from_db = Competitor.search(params[:search])
+    end 
   end 
   
   def add_competitor

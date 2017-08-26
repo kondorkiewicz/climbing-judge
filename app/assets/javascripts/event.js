@@ -1,12 +1,12 @@
 function checkForHiddenDiv(id) {
-  if($('#'+ id + ' tr').size() <= 1) {
+  if($('#'+ id + ' tr').length <= 1) {
     $('#' + id).addClass('hidden');
   } else {
     $('#' + id).removeClass('hidden');
   }
 }
 
-$(document).ready(function() {  
+document.addEventListener("turbolinks:load", function() {  
   
   $(document).on("click", "#events tr", function() {
 

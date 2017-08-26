@@ -15,3 +15,9 @@
 //= require turbolinks
 //= require bootstrap.min
 //= require_tree .
+
+document.addEventListener("turbolinks:load", function() {
+  $('[data-toggle=offcanvas]').click(function() {
+    $('.row-offcanvas').toggleClass('active');
+  });
+});

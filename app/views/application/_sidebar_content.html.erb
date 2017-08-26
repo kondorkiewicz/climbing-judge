@@ -1,0 +1,10 @@
+<% if current_user && current_user.admin %>
+  <% content_for :sidebar do %>
+    <li><%= link_to "Create Event", new_event_path, class: 'btn btn-lg btn-success' %></li>
+    <h4>Your events:</h4>
+    <% current_user.events.each do |event| %>
+      <li class='list-group-item'><%= link_to "#{event.name} (#{event.status})", event_path(event) %>
+      </li>
+    <% end %>
+  <% end %>
+<% end %>

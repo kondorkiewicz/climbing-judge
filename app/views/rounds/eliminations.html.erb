@@ -1,0 +1,71 @@
+<% content_for :sidebar do %>
+  <div id="compute_results">
+    <li class="active list-group-item">Eliminations <br>
+      (scores remaining: <%= scores_remaining([@m1, @f1, @m2, @f2]) %>)
+    </li>
+    <% if enough_scores?([@m1, @f1, @m2, @f2]) %>
+      <li class='list-group-item'><%= link_to "Eliminations Results", compute_eliminations_results_event_path, 
+                    class: 'btn btn-md btn-success' %></li>
+    <% end %>
+  </div>
+  <a href='#' id='m1-btn' class='list-group-item'>First list for men</a>
+  <a href='#' id='f1-btn' class='list-group-item'>First list for women</a>
+  <a href='#' id='m2-btn' class='list-group-item'>Second list for men</a>
+  <a href='#' id='f2-btn' class='list-group-item'>Second list for women</a>
+  <li class="active list-group-item">Starting Lists (PDF)</li>
+  <% @event.eliminations_lists.each do |list| %>
+    <%= link_to "Round: #{list.round}, sex: #{list.sex}", list_path(list, format: "pdf"),
+                  class: 'list-group-item' %>
+  <% end %>
+  <li class="active list-group-item danger">Delete lists</li>
+  <%= link_to "Delete eliminations lists", delete_eliminations_lists_event_path, class: 'list-group-item',
+                data: { confirm: "Are you sure?" } %>
+<% end %>
+
+<div class="row" id="m1">
+
+    <div id="m1_scores" class="col-md-6">
+      <%= render partial: 'scores/scores', locals: {scores: @m1.start_list, name: "Men's first route" } %>
+  </div>
+  
+    <div id="m1_res" class="col-md-6">
+      <%= render partial: 'scores/results', locals: {results: @m1.results, name: "Men's first route results" } %>
+    </div>
+
+</div>
+
+<div class="row" id="f1">
+  
+    <div id="f1_scores" class="col-md-6">
+      <%= render partial: 'scores/scores', locals: { scores: @f1.start_list, name: "Women's first route" } %>
+    </div>
+  
+    <div id="f1_res" class="col-md-6">
+      <%= render partial: 'scores/results', locals: {results: @f1.results, name: "Women's first route results" } %>
+    </div>
+  
+</div>
+  
+<div class="row" id="m2">
+  
+    <div id="m2_scores" class="col-md-6">
+      <%= render partial: 'scores/scores', locals: { scores: @m2.start_list, name: "Men's second route" } %>
+    </div>
+  
+    <div id="m2_res" class="col-md-6">
+      <%= render partial: 'scores/results', locals: {results: @m2.results, name: "Men's second route results" } %>
+    </div>
+
+</div>  
+
+<div class="row" id="f2">
+  
+    <div id="f2_scores" class="col-md-6">
+      <%= render partial: 'scores/scores', locals: { scores: @f2.start_list, name: "Women's second route" } %>
+   </div>
+  
+    <div id="f2_res" class="col-md-6">
+      <%= render partial: 'scores/results', locals: {results: @f2.results, name: "Women's second route results" } %> 
+    </div>
+
+</div>  

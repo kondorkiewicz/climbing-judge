@@ -1,0 +1,12 @@
+<%= render 'sidebar_content' %>
+
+<div class="row">
+  
+  <div class="col-sm-4">
+    <%= render partial: 'competitors', locals: {competitors: @men, name: 'Men' } %>
+  </div>
+  <div class="col-sm-4">
+    <%= render partial: 'competitors', locals: {competitors: @women, name: 'Women' } %>
+  </div>
+  
+</div>

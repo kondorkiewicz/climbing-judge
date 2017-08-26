@@ -1,6 +1,9 @@
 class EventsController < ApplicationController
-  before_action :set_event, except: [:new, :create]
   before_action :authorize, only: [:new, :create]
+  
+  def index 
+    @events = Event.all.where(status: "finished")
+  end 
   
   def new 
     @event = Event.new 
@@ -8,9 +11,10 @@ class EventsController < ApplicationController
   
   def create
     @event = Event.new(event_params)
+    @event.user_id = current_user.id
+    @event.status = "competitors"
     respond_to do |format|
       if @event.save
-        session[:event_id] = @event.id
         format.html { redirect_to competitors_event_path(@event), notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
       else
@@ -20,31 +24,20 @@ class EventsController < ApplicationController
     end
   end
   
-  def eliminations 
-    @m1 = @event.round('el_1', 'M')
-    @f1 = @event.round('el_1', 'F')
-    @m2 = @event.round('el_2', 'M')
-    @f2 = @event.round('el_2', 'F')
-  end 
-  
-  def semi_finals 
-    @m = @event.round('sf', 'M')
-    @f = @event.round('sf', 'F')
-  end 
-  
-  def finals 
-    @m = @event.round('f', 'M')
-    @f = @event.round('f', 'F')
-  end 
-  
+  def show
+    @event = Event.find(params[:id])
+    if @event.user_id == current_user.id && @event.status != "finished"
+      redirect_to send("#{@event.status}_event_path")
+    else 
+      @men = @event.results.sex('M')
+      @women = @event.results.sex('F')
+    end 
+  end  
+
   private 
   
   def event_params
     params.require(:event).permit(:name, :place)
   end
-  
-  def set_event 
-    @event = Event.find(params[:id])
-  end 
   
 end

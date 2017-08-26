@@ -1,0 +1,7 @@
+<% round = @score.list.round %>
+<% name = @event.status.titleize %>
+
+$('#m_res').html('<%= j render partial: "scores/results", locals: {results: @event.round_results("#{round}", "M"), name: "#{name} (men) results" } %>');
+$('#f_res').html('<%= j render partial: "scores/results", locals: {results: @event.round_results("#{round}", "F"), name: "#{name} (women) results"} %>');
+
+$( "#compute_results" ).load(window.location.href + " #compute_results");

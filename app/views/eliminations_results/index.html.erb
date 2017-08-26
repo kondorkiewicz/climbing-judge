@@ -1,0 +1,28 @@
+<% content_for :sidebar do %>
+  <li class="active list-group-item">Eliminations Results (PDF)</li>
+  <%= link_to "Men's Results", eliminations_results_event_path(sex: 'Men', format: "pdf"), class: 'list-group-item' %>
+  <%= link_to "Women's Results", eliminations_results_event_path(sex: 'Women', format: "pdf"), class: 'list-group-item' %>
+  <% @event.eliminations_lists.each do |list| %>
+    <%= link_to "Round: #{list.round}, sex: #{list.sex}", list_path(list, format: "pdf", type: "results"),
+                  class: 'list-group-item' %>
+  <% end %>
+  <li class="active list-group-item action">Create Lists</li>
+  <%= link_to "Semi Finals", create_finals_lists_event_path(comps_number: 16), class: 'list-group-item' %>
+  <%= link_to "Finals", create_finals_lists_event_path(comps_number: 8), class: 'list-group-item' %>
+  <li class="active list-group-item danger">Delete Results</li>
+  <%= link_to "Delete Eliminations Results", delete_eliminations_results_event_path, class: 'list-group-item', 
+            data: { confirm: 'Are you sure?' } %>
+<% end %>
+
+<div class="row">
+  
+  <div class="col-sm-6">
+    <%= render partial: 'eliminations_results', locals: {eliminations_results: @men_results.sort_by { |result| result.place }, 
+                                                        name: 'Men\'s eliminations results' } %>
+  </div>
+  <div class="col-sm-6">
+    <%= render partial: 'eliminations_results', locals: {eliminations_results: @women_results.sort_by { |result| result.place }, 
+                                                        name: 'Women\'s eliminations results' } %>
+  </div>
+  
+</div>

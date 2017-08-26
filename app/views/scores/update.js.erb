@@ -1,1 +1,7 @@
-$(".res").load(location.href+" .res>*","");
+$('#m1_res').html('<%= j render partial: "scores/results", locals: {results: @event.round_results("el_1", "M"), name: "Men\'s first route results" } %>');
+$('#f1_res').html('<%= j render partial: "scores/results", locals: {results: @event.round_results("el_1", "F"), name: "Women\'s first route results"} %>');
+$('#m2_res').html('<%= j render partial: "scores/results", locals: {results: @event.round_results("el_2", "M"), name: "Men\'s second route results"} %>');
+$('#f2_res').html('<%= j render partial: "scores/results", locals: {results: @event.round_results("el_2", "F"), name: "Women\'s second route results"} %>');
+
+$( "#compute_results" ).load(window.location.href + " #compute_results");
+

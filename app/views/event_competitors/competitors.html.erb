@@ -1,7 +1,6 @@
-<% content_for :menu_items do %>
-  <li><p class="navbar-btn"><%= link_to 'Competitors', competitors_event_path, class: 'btn btn-sm btn-success disabled' %></p></li>
-  
-  <li><p class="navbar-btn"><%= link_to 'Eliminations',  create_eliminations_lists_event_path, class: 'btn btn-sm btn-success' %></p></li>
+<% content_for :sidebar do %>
+  <%= link_to 'Create Eliminations Lists',  create_eliminations_lists_event_path, 
+          class: 'btn btn-md btn-success' %>
 <% end %>
 
 <div class="container-fluid">
