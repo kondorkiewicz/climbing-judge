@@ -3,7 +3,8 @@ require 'exceptions'
 class Event < ApplicationRecord
   include Exceptions
   validates :name, presence: true
-  has_many :lists, dependent: :destroy 
+  belongs_to :user
+  has_many :lists, dependent: :destroy  
   has_many :eliminations_results, dependent: :destroy 
   has_many :results, dependent: :destroy 
   has_and_belongs_to_many :competitors

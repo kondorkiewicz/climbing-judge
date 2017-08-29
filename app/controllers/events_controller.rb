@@ -11,7 +11,7 @@ class EventsController < ApplicationController
   
   def create
     @event = Event.new(event_params)
-    @event.user_id = current_user.id
+    @event.user_id = current_user
     @event.status = "competitors"
     respond_to do |format|
       if @event.save
