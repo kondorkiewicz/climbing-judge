@@ -2,7 +2,7 @@
 <tbody>
     <tr>
       <td><%= score.start_number %></td>
-      <td><%= score.competitor.name %> <%= score.competitor.surname %></td>
+      <td><%= score.competitor.full_name %></td>
       <td><%= form_for score, remote: true do %>
         <table>
           <tr>

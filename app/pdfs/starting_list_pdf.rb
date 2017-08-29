@@ -28,7 +28,7 @@ class StartingListPdf < Prawn::Document
   def scores_rows
     [["Start Number", "Full Name", "Club"]] +
     @list.scores.sort_by { |score| score.start_number }.map do |score|
-      [score.start_number, score.competitor.name + " " + score.competitor.surname, score.competitor.club]
+      [score.start_number, score.competitor.full_name, score.competitor.club]
     end
   end
 end

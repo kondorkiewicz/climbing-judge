@@ -1,13 +1,14 @@
 <% content_for :sidebar do %>
-  <%= link_to 'Create Eliminations Lists',  create_eliminations_lists_event_path, 
-          class: 'btn btn-md btn-success' %>
+  
 <% end %>
 
 <div class="container-fluid">
 
   <div class="row">
     
-    <div class="col-sm-5">
+    <h2 class="text-center">Adding Competitors</h2><br>
+    
+    <div class="col-sm-6">
       <div class="panel panel-primary">
         <div class="panel-heading text-center"><strong>Search in database</strong></div>
         <div class="panel-body text-center">
@@ -27,7 +28,7 @@
       <%= render partial: 'competitors/form', object: Competitor.new, as: :competitor, locals: {event_id: @event.id} %>
     </div>
   
-    <div class="col-sm-7">
+    <div class="col-sm-6">
         
           <div class="hidden" id="event_men">
             <%= render partial: 'delete_competitors', locals: { competitors: @event.men, name: "Men" } %> 
@@ -39,6 +40,9 @@
       
     </div>
     
+  </div>
+  <div class="row text-center">
+    <%= link_to 'Create Eliminations Lists',  create_eliminations_lists_event_path, class: 'btn btn-lg btn-success' %>
   </div>
 </div>
 

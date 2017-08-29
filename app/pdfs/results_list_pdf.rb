@@ -26,9 +26,9 @@ class ResultsListPdf < Prawn::Document
   end 
   
   def scores_rows
-    [["Place", "Full Name", "Club", "Points"]] +
+    [["Place", "Full Name", "Club", "Score", "Points"]] +
     @list.scores.sort_by { |score| score.place }.map do |score|
-      [score.place, score.competitor.name + " " + score.competitor.surname, score.competitor.club, score.ex_points]
+      [score.place, score.competitor.full_name, score.competitor.club, score.score, score.ex_points]
     end
   end
 end

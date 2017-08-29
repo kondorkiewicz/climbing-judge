@@ -10,12 +10,14 @@
 
   <body>
     
-    <%= render 'menu2' %>
+    <%= render 'menu' %>
     
     <div class="row-offcanvas row-offcanvas-left">
-      <% flash.each do |key, value| %>
-       <div class="alert alert-<%= key %>"><%= value %></div>
-     <% end %>
+      <div id="flash">
+        <% flash.each do |key, value| %>
+         <div class="alert alert-<%= key %>"><%= value %></div>
+        <% end %>
+      </div>
      
     <% if content_for?(:sidebar) %>
       <%= render 'sidebar' %>

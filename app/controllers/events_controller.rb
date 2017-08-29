@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :authorize, only: [:new, :create]
+  before_action :authorize, only: [:new, :create, :destroy]
   
   def index 
     @events = Event.all.where(status: "finished")
@@ -26,13 +26,21 @@ class EventsController < ApplicationController
   
   def show
     @event = Event.find(params[:id])
-    if @event.user_id == current_user.id && @event.status != "finished"
+    if current_user && @event.user_id == current_user.id && @event.status != "finished"
       redirect_to send("#{@event.status}_event_path")
+    elsif @event.status != "finished" 
+      redirect_to root_path, warning: "This event is not finished!"
     else 
       @men = @event.results.sex('M')
       @women = @event.results.sex('F')
     end 
   end  
+  
+  def destroy
+    @event = Event.find(params[:id])
+    @event.destroy 
+    redirect_to root_path, info: "Event has been destroyed."
+  end
 
   private 
   

@@ -17,7 +17,7 @@
  ul.nav li.danger, ul.nav li.danger:hover { color: #ff0000; }
  ul.nav li.action, ul.nav li.action:hover { color: GreenYellow; }
  
- #m1, #f1, #m2, #f2, #m, #f {
+ #m2, #f2 {
    display: none;
  }
 

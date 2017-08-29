@@ -1,10 +1,17 @@
 <% if current_user && current_user.admin %>
-  <% content_for :sidebar do %>
-    <li><%= link_to "Create Event", new_event_path, class: 'btn btn-lg btn-success' %></li>
-    <h4>Your events:</h4>
-    <% current_user.events.each do |event| %>
-      <li class='list-group-item'><%= link_to "#{event.name} (#{event.status})", event_path(event) %>
-      </li>
+  <%= content_for :sidebar do %>
+    <div class="text-center"><li class="list-group-item"><%= link_to "Create Event", new_event_path, class: 'btn btn-lg btn-success' %></li></div>
+    <% unless current_user.events.empty? %>
+      <li class="list-group-item"><h4>Your events:</h4></li>
+      <% current_user.events.sort_by { |e| e.updated_at }.reverse.each do |event| %>
+      <li class="list-group-item">
+        <div style="display:block;">
+          <%= link_to "#{event.name} (#{event.status})", event_path(event) %>
+          <div><%= link_to "Delete", event_path(event), method: :delete, 
+                  class: "btn btn-xs btn-danger", data: { confirm: "Are you sure?" } %></div>
+          </div>
+        </li>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

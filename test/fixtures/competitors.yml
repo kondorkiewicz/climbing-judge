@@ -1,15 +1,44 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  surname: MyString
-  sex: MyString
-  club: MyString
-  birth_date: 2017-08-16
+<% 20.times do |n| %>
+male_comp_<%= n %>:
+  name: <%= "comp_#{n}" %>
+  surname: <%= "surname_#{n}" %>
+  sex: M
+  club: <%= "club_#{n}" %>
+  birth_date: <%= "1986-08-#{n}" %>
+  events: PP
+<% end %>
 
-two:
-  name: MyString
-  surname: MyString
-  sex: MyString
-  club: MyString
-  birth_date: 2017-08-16
+<% 19.times do |n| %>
+female_comp_<%= n %>:
+  name: <%= "comp_#{n}" %>
+  surname: <%= "surname_#{n}" %>
+  sex: F
+  club: <%= "club_#{n}" %>
+  birth_date: <%= "1986-08-#{n}" %>
+  events: PP
+<% end %>
+
+konrad:
+  name: Konrad 
+  surname: Ociepka
+  sex: M
+  club: KS Korona
+  birth_date: 1986-07-15
+  events: PP
+
+kinga:
+  name: Kinga
+  surname: Ociepka
+  sex: F
+  club: KS Korona
+  birth_date: 1986-07-15
+  events: PP
+  
+kajetan: 
+  name: Kajetan 
+  surname: Kups
+  sex: M
+  club: KS Korona 
+  birth_date: 1993-02-04 

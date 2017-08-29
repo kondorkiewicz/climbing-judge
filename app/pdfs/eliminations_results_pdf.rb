@@ -28,8 +28,8 @@ class EliminationsResultsPdf < Prawn::Document
   def results_rows
     [["Place", "Full Name", "1-st Route", "2-nd Route", "Points"]] +
     @results.sort_by { |result| result.place }.map do |result|
-      [result.place, result.competitor.name + " " + result.competitor.surname, result.first_route_place, 
-      result.second_route_place, result.points.round(2)]
+      [result.place, result.competitor.full_name, result.first_route_place, 
+        result.second_route_place, result.points.round(2)]
     end
   end
 end

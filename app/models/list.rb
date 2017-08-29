@@ -11,17 +11,17 @@ class List < ApplicationRecord
   end
   
   def set_places
-    count = 1; place = 1
-    scores.sort_by {|score| score.score}.reverse.each_cons(2) do |a, b|
-      if a.score == b.score
-        a.place = place; b.place = place
-        count += 1
-        a.save; b.save
-      else 
-        a.place = place; b.place = place + count
-        place += count; count = 1
-        a.save; b.save 
-      end 
+      count = 1; place = 1
+      scores.sort_by {|score| score.score}.reverse.each_cons(2) do |a, b|
+        if a.score == b.score
+          a.place = place; b.place = place
+          count += 1
+          a.save; b.save
+        else 
+          a.place = place; b.place = place + count
+          place += count; count = 1
+          a.save; b.save 
+        end 
     end 
   end
   

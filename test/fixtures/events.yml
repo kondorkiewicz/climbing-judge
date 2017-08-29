@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  place: MyString
+PP:
+  name: Puchar Polski
+  place: Avatar
 
-two:
-  name: MyString
-  place: MyString
+MP:
+  name: Mistrzostwa Polski 
+  place: KS Korona

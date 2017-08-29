@@ -5,7 +5,7 @@ class EventCompetitorsController < ApplicationController
   def competitors 
     if @event.status != "competitors"
       redirect_to send("#{@event.status}_event_path"),
-              flash: { warning: 'You need to delete scores from a round you are currently in to go back!'}
+            warning: 'You need to delete scores from a round you are currently in to go back!'
     else
       @competitors_from_db = Competitor.search(params[:search])
     end 

@@ -1,7 +1,7 @@
 <tbody>
   <tr id="<%= event_result.id %>" data-href="<%= competitor_path(event_result.competitor) %>">
     <td><%= event_result.place %></td>
-    <td><%= event_result.competitor.name %> <%= event_result.competitor.surname %></td>
+    <td><%= event_result.competitor.full_name %></td>
     <td><%= event_result.points %></td>
   </tr>
 </tbody>

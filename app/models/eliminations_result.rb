@@ -7,7 +7,10 @@ class EliminationsResult < ApplicationRecord
   end
   
   def self.set_places_after_eliminations(sex, event)
-    scores = event.round_list('el_1', sex).scores + event.round_list('el_2', sex).scores
+    scores = event.list_scores('el_1', sex) + event.list_scores('el_2', sex)
+    if scores.any? { |score| score.score == 0 }
+      raise StandardError.new('Every score has to be greater than zero!')
+    end 
     points = set_points(scores, event.id)
     set_places(points)
   end
@@ -25,17 +28,21 @@ class EliminationsResult < ApplicationRecord
   end
   
   def self.set_places(points)
-    points.sort_by! { |comp| comp.points }
-    count = 1; place = 1
-    points.each_cons(2) do |comp1, comp2|
-      if comp1.points == comp2.points
-        comp1.place = place; comp2.place = place
-        count += 1
-        comp1.save; comp2.save
-      else 
-        comp1.place = place; comp2.place = place + count
-        place += count; count = 1
-        comp1.save; comp2.save
+    if points.size == 1 
+      points.first.update_attribute(:place, 1)
+    else 
+      points.sort_by! { |comp| comp.points }
+      count = 1; place = 1
+      points.each_cons(2) do |comp1, comp2|
+        if comp1.points == comp2.points
+          comp1.place = place; comp2.place = place
+          count += 1
+          comp1.save; comp2.save
+        else 
+          comp1.place = place; comp2.place = place + count
+          place += count; count = 1
+          comp1.save; comp2.save
+        end 
       end 
     end 
   end

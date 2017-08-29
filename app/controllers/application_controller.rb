@@ -1,7 +1,20 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   add_flash_types :success, :warning, :danger, :info
-  private 
+  
+  private
+  
+  def set_event 
+    @event = Event.find(params[:id])
+  end 
+  
+  def check_finished_status
+    redirect_to event_path, info: "This event is finished!" if @event.status == "finished"
+  end
+  
+  def check_status(status)
+    redirect_to send("#{@event.status}_event_path"), warning: "Prohibited action!" unless @event.status == status
+  end 
   
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
