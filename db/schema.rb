@@ -12,22 +12,25 @@
 
 ActiveRecord::Schema.define(version: 20170825090831) do
 
-  create_table "competitors", force: :cascade do |t|
-    t.string   "name"
-    t.string   "surname"
-    t.string   "sex"
-    t.string   "club"
-    t.date     "birth_date"
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "competitors", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "surname"
+    t.string "sex"
+    t.string "club"
+    t.date "birth_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "competitors_events", id: false, force: :cascade do |t|
-    t.integer "event_id",      null: false
-    t.integer "competitor_id", null: false
+    t.bigint "event_id", null: false
+    t.bigint "competitor_id", null: false
   end
 
-  create_table "eliminations_results", force: :cascade do |t|
+  create_table "eliminations_results", id: :serial, force: :cascade do |t|
     t.integer "place"
     t.integer "competitor_id"
     t.integer "event_id"
@@ -38,56 +41,64 @@ ActiveRecord::Schema.define(version: 20170825090831) do
     t.index ["event_id"], name: "index_eliminations_results_on_event_id"
   end
 
-  create_table "events", force: :cascade do |t|
-    t.string   "name"
-    t.string   "place"
+  create_table "events", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "place"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "user_id"
-    t.string   "status"
+    t.integer "user_id"
+    t.string "status"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
-  create_table "lists", force: :cascade do |t|
-    t.integer  "event_id"
-    t.string   "round"
+  create_table "lists", id: :serial, force: :cascade do |t|
+    t.integer "event_id"
+    t.string "round"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "sex"
-    t.string   "name"
+    t.string "sex"
+    t.string "name"
     t.index ["event_id"], name: "index_lists_on_event_id"
   end
 
-  create_table "results", force: :cascade do |t|
-    t.integer  "event_id"
-    t.integer  "competitor_id"
-    t.integer  "place"
-    t.integer  "points"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+  create_table "results", id: :serial, force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "competitor_id"
+    t.integer "place"
+    t.integer "points"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["competitor_id"], name: "index_results_on_competitor_id"
     t.index ["event_id"], name: "index_results_on_event_id"
   end
 
-  create_table "scores", force: :cascade do |t|
-    t.integer  "list_id"
-    t.integer  "competitor_id"
-    t.integer  "start_number"
-    t.decimal  "score"
-    t.integer  "place"
-    t.decimal  "ex_points"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+  create_table "scores", id: :serial, force: :cascade do |t|
+    t.integer "list_id"
+    t.integer "competitor_id"
+    t.integer "start_number"
+    t.decimal "score"
+    t.integer "place"
+    t.decimal "ex_points"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["competitor_id"], name: "index_scores_on_competitor_id"
     t.index ["list_id"], name: "index_scores_on_list_id"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "email"
-    t.string   "password_digest"
-    t.boolean  "admin"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+  create_table "users", id: :serial, force: :cascade do |t|
+    t.string "email"
+    t.string "password_digest"
+    t.boolean "admin"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "eliminations_results", "competitors"
+  add_foreign_key "eliminations_results", "events"
+  add_foreign_key "events", "users"
+  add_foreign_key "lists", "events"
+  add_foreign_key "results", "competitors"
+  add_foreign_key "results", "events"
+  add_foreign_key "scores", "competitors"
+  add_foreign_key "scores", "lists"
 end
