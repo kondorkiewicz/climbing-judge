@@ -1,6 +1,18 @@
 <%= render 'sidebar_content' %>
 
 <div class="container jumbotron">
+  <%= image_tag('tw-small0.png', class: 'image') %>
   <h1>Climbing Judge</h1>
-  <p>This is the app to judge climbing competitions</p>
+  <p>Climbing Judge is the app that helps judge climbing competitions.</p>
+  <p>For now it covers only one of three climbing disciplines - LEAD (Lead, Bouldering, Speed).</p>
+  <p>To use it, please <%= link_to "signup", signup_path %> with your real email address and 
+    follow the instructions.</p>
+    
+  <h2>LEAD</h2>
+  <p>Lead competition consists of three rounds: eliminations, semi-finals and finals.</p>
+  <p>In eliminations every competitor climbs on each of two eliminations routes. 
+    The result of this round is calculated by combining scores from both routes.</p>
+  <p>Twenty six best from eliminations start in semi-finals. 
+  Semi-Finals are optional in case there is a small number of competitors.</p>
+  <p>Eight best from semi-finals start in finals.</p>
 </div>

@@ -8,7 +8,8 @@ class UsersController < ApplicationController
     if @user.save 
       session[:user_id] = @user.id
       UserMailer.welcome_email(@user).deliver_later
-      redirect_to root_url, notice: "Thank you for signing up!"
+      redirect_to root_url, info: "Thank you for signing up! Email has been sent to you.
+       Please check your inbox and follow the instructions."
     else 
       render "new"
     end 
