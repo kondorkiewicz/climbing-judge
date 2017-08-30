@@ -1,24 +1,17 @@
-# README
+# Climbing Judge
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Climbing Judge is the app that helps judge climbing competitions. 
 
-Things you may want to cover:
+For now it covers only one of three climbing disciplines - LEAD (Lead, Bouldering, Speed). 
 
-* Ruby version
+## LEAD
 
-* System dependencies
+Lead competition consists of three rounds: eliminations, semi-finals and finals.
 
-* Configuration
+In eliminations every competitor climbs on each of two eliminations routes. 
+The result of this round is calculated by combining scores from both routes.
 
-* Database creation
+Twenty six best from eliminations start in semi-finals.
+Semi-Finals are optional in case there is a small number of competitors.
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Eight best from semi-finals start in finals.
