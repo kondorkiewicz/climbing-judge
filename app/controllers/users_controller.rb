@@ -5,11 +5,12 @@ class UsersController < ApplicationController
   
   def create 
     @user = User.new(user_params)
+    @user.admin = true 
     if @user.save 
       session[:user_id] = @user.id
       UserMailer.welcome_email(@user).deliver_later
-      redirect_to root_url, info: "Thank you for signing up! Email has been sent to you.
-       Please check your inbox and follow the instructions."
+      redirect_to root_url, info: "Thank you for signing up! You can now create
+      an event."
     else 
       render "new"
     end 
