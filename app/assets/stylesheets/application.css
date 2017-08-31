@@ -22,6 +22,10 @@
    padding: 20px;
  }
  
+ .delete_button { 
+   margin-left: 15px;
+ }
+ 
  #m2, #f2 {
    display: none;
  }
