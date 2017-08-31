@@ -1,5 +1,6 @@
 class Competitor < ApplicationRecord
   has_and_belongs_to_many :events
+  validates :name, :surname, :sex, :club, :birth_date, presence: true 
   
   def full_name
     "#{name} #{surname}"
