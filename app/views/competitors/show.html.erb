@@ -1,5 +1,9 @@
 <%= render 'sidebar_content' %>
 
 <div class="col-md-12">
-<%= render partial: 'competitors/competitor_results', loclas: {results: @results, competitor: @competitor } %>
+  <% if @results.empty? %>
+    <h4 class='bg-info'>This competitor doesn't have any results.</h4>
+  <% else %> 
+    <%= render partial: 'competitors/competitor_results', loclas: {results: @results, competitor: @competitor } %>
+  <% end %>
 </div>

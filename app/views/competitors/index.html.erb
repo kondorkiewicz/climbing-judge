@@ -3,10 +3,18 @@
 <div class="row">
   
   <div class="col-sm-6">
-    <%= render partial: 'competitors', locals: {competitors: @men, name: 'Men' } %>
+    <% if @men.empty? %>
+      <h4 class='bg-info'>There are no male competitors.</h4>
+    <% else %>
+      <%= render partial: 'competitors', locals: {competitors: @men, name: 'Men' } %>
+    <% end %>
   </div>
   <div class="col-sm-6">
-    <%= render partial: 'competitors', locals: {competitors: @women, name: 'Women' } %>
+    <% if @women.empty? %>
+      <h4 class='bg-info'>There are no female competitors.</h4>
+    <% else %>
+      <%= render partial: 'competitors', locals: {competitors: @women, name: 'Women' } %>
+    <% end %>
   </div>
   
 </div>

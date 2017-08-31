@@ -1,5 +1,9 @@
 <%= render 'sidebar_content' %>
 
 <div class="col-md-12">
-<%= render partial: 'events', locals: {events: @events } %>
+  <% if @events.empty? %>
+    <h4 class='bg-info'>There are no events.</h4>
+  <% else %>
+    <%= render partial: 'events', locals: {events: @events } %>
+  <% end %>
 </div>
