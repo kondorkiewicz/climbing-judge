@@ -1,6 +1,7 @@
 class CompetitorsController < ApplicationController
   
   def index
+    @competitors = Competitor.all
     @men = Competitor.sex('M')
     @women = Competitor.sex('F')
   end
@@ -28,7 +29,7 @@ class CompetitorsController < ApplicationController
   private 
   
   def competitor_params
-    params.require(:competitor).permit(:name, :surname, :birth_date, :sex, :club)
+    params.require(:competitor).permit(:name, :surname, :date_of_birth, :sex, :club)
   end
   
 end
