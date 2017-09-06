@@ -1,8 +1,6 @@
 require 'test_helper'
-require 'exceptions'
 
 class EventTest < ActiveSupport::TestCase
-  include Exceptions 
   
   def setup
     @event = events(:PP)
@@ -23,36 +21,19 @@ class EventTest < ActiveSupport::TestCase
     assert_equal 20, @event.women.size 
   end
   
-  test "should not create eliminations lists without competitors" do 
-    event = events(:MP) 
-    exception = assert_raise(ClimbingError) { event.create_eliminations_lists }
-    assert_equal 'There has to be at least one competitor in each category!', exception.message
-  end
-  
   test "there are four eliminations lists" do 
     assert_equal 4, @event.eliminations_lists.size
   end
   
   test "there are all competitors in each eliminations list" do 
-    assert_equal @event.men.size, @event.list_scores('el_1', 'M').size
-    assert_equal @event.list_scores('el_1', 'M').size, @event.list_scores('el_2', 'M').size
-    assert_equal @event.women.size, @event.list_scores('el_1', 'F').size
-    assert_equal @event.list_scores('el_1', 'F').size, @event.list_scores('el_2', 'F').size
-  end
-  
-  test "each list has a proper name" do 
-    assert_equal "First route (men)", @event.list('el_1', 'M').name 
-    assert_equal "Second route (men)", @event.list('el_2', 'M').name
-    assert_equal "First route (women)", @event.list('el_1', 'F').name
-    assert_equal "Second route (women)", @event.list('el_2', 'F').name
+    assert_equal @event.men.size, @event.list_scores('first_route', 'men').size
+    assert_equal @event.list_scores('first_route', 'men').size, @event.list_scores('second_route', 'men').size
+    assert_equal @event.women.size, @event.list_scores('first_route', 'women').size
+    assert_equal @event.list_scores('first_route', 'women').size, @event.list_scores('second_route', 'women').size
   end
   
   test "competitor is on a proper place on both lists" do 
-    assert_equal @event.list_scores('el_1', 'M')[0].competitor, @event.list_scores('el_2', 'M')[11].competitor
-  end
-  
-  test "start numbers are properly added" do 
-    score1 = @event.list_scores('el_1', 'M').where(start_number: 1)
+    assert_equal @event.list_scores('first_route', 'men')[0].competitor, @event.list_scores('second_route', 'men')[11].competitor
   end
   
 end

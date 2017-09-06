@@ -18,6 +18,11 @@ class ActiveSupport::TestCase
     users(:marcin)
   end
   
+  def login(name, password)
+    post sessions_path, params: { email: users(name).email, password: password }
+    users(name)
+  end 
+  
   def new_event 
     post events_path, params: { event: { name: 'Puchar Polski', place: 'Tarnovia' } }
     Event.last

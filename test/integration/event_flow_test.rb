@@ -37,7 +37,7 @@ class EventFlowTest < ActionDispatch::IntegrationTest
     post events_path, params: { event: { name: 'Puchar Polski', place: 'Tarnovia' } }
     assert_response :redirect
     follow_redirect!
-    assert_select "h4", "Puchar Polski"
+    assert_select "h2", "Adding Competitors"
   end 
   
   test "not authorized user should not view unfinished event" do

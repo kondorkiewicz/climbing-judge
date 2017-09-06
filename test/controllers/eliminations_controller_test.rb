@@ -1,4 +1,6 @@
+require 'test_helper'
+
 class EliminationsControllerTest < ActionDispatch::IntegrationTest
   
-  test 
+
 end 

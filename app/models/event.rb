@@ -97,14 +97,4 @@ class Event < ApplicationRecord
     end
   end
   
-  def some_conditions 
-    if status == 'semi_finals' && round_scores('sf').any? { |score| score.score == 0 }
-      raise StandardError.new('Every score has to be greater than zero!')
-    end 
-    
-    if list('finals', sex).nil? && eliminations_lists.empty?
-      raise StandardError.new('There are no scores in previous round!')
-    end
-  end 
-  
 end
