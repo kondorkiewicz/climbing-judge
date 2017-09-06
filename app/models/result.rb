@@ -13,10 +13,6 @@ class Result < ApplicationRecord
   end
   
   def self.compute_results(event, sex)
-    scores = event.list_scores('f', 'M') + event.list_scores('f', 'F')
-    if scores.any? { |score| score.score == 0 }
-      raise StandardError.new('Every score has to be greater than zero!')
-    end 
     results = gather_results(event, sex)
     results.each do |comp| 
       create(competitor_id: comp.competitor.id, event_id: event.id, place: comp.place, points: POINTS[comp.place - 1] )
@@ -24,9 +20,10 @@ class Result < ApplicationRecord
   end 
   
   def self.gather_results(event, sex) 
-    el_res = event.eliminations_results.sex(sex) 
-    sf_res = event.list_scores('sf', sex) unless event.list('sf', sex).nil?
-    res = event.list_scores('f', sex)
+    sex == 'men' ? comp_sex = 'M' : comp_sex = 'F'
+    el_res = event.eliminations_results.sex(comp_sex) 
+    sf_res = event.list_scores('semi-finals', sex) unless event.list('semi-finals', sex).nil?
+    res = event.list_scores('finals', sex)
     finalists = res.map { |res| res.competitor_id }
     if sf_res 
       sf_res.each { |comp| res << comp unless finalists.include?(comp.competitor_id) }

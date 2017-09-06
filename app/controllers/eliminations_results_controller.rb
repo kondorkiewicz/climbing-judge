@@ -1,16 +1,11 @@
 class EliminationsResultsController < ApplicationController
-  before_action :set_event
-  before_action :authorize_event
-  before_action :check_finished_status
+  before_action :set_event, :authorize_event, :check_finished_status
   before_action only: [:compute_eliminations_results] { check_status('eliminations') }
-  before_action only: [:delete_eliminations_results, :index] { check_status('eliminations_results') }
+  before_action except: [:compute_eliminations_results] { check_status('eliminations_results') }
   
   def index 
     @men_results = @event.eliminations_results.sex('M')
     @women_results = @event.eliminations_results.sex('F')
-    if @men_results.empty? || @women_results.empty?
-      redirect_to eliminations_event_path(@event), warning: "There are no eliminations results!" 
-    end
     params[:sex] == 'Men' ? @results = @men_results : @results = @women_results
     respond_to do |format|
       format.html 
@@ -24,20 +19,23 @@ class EliminationsResultsController < ApplicationController
   end 
   
   def compute_eliminations_results
-    begin
-      EliminationsResult.set_places_after_eliminations('M', @event)
-      EliminationsResult.set_places_after_eliminations('F', @event)
-      @event.status = "eliminations_results"; @event.save
-      redirect_to eliminations_results_event_path, info: "Eliminations results have been computed."
-    rescue => e 
-      redirect_to send("#{@event.status}_event_path"), danger: "#{e.message}"
+    if correct_scores?(@event.eliminations_lists)
+      EliminationsResult.set_places_after_eliminations('men', @event)
+      EliminationsResult.set_places_after_eliminations('women', @event)
+      @event.update_attribute(:status, 'eliminations_results')
+      redirect_to eliminations_results_event_path, 
+        info: "Eliminations results have been computed."
+    else 
+      redirect_to eliminations_event_path,
+        warning: 'Every score has to be greater than zero!'
     end 
   end
   
   def delete_eliminations_results
     @event.eliminations_results.destroy_all
     @event.status = "eliminations"; @event.save 
-    redirect_to eliminations_event_path, info: "Eliminations Results have been deleted!" 
+    redirect_to eliminations_event_path, 
+      info: "Eliminations Results have been deleted!" 
   end 
   
 end 

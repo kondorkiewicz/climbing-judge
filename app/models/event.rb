@@ -1,7 +1,4 @@
-require 'exceptions'
-
 class Event < ApplicationRecord
-  include Exceptions
   validates :name, presence: true
   belongs_to :user
   has_many :lists, dependent: :destroy  
@@ -18,10 +15,10 @@ class Event < ApplicationRecord
   end
   
   def eliminations_lists
-    lists.where("round = ? OR round = ?", "el_1", "el_2")
+    lists.where("round = ? OR round = ?", "first_route", "second_route")
   end
   
-  def finals_lists(round) 
+  def round_lists(round) 
     lists.where(round: round)
   end
   
@@ -38,52 +35,49 @@ class Event < ApplicationRecord
   end
   
   def create_eliminations_lists
-    if men.empty? || women.empty?
-      raise Exceptions::ClimbingError.new('There has to be at least one competitor in each category!')
-    elsif !eliminations_lists.empty?
-      raise Exceptions::ClimbingError.new('Eliminations lists for that event already exist!')
-    end
     m1 = create_first_list(men)
     f1 = create_first_list(women)
-    create_second_list('M')
-    create_second_list('F')
+    create_second_list(m1)
+    create_second_list(f1)
   end 
   
   def create_first_list(competitors)
-    sex = competitors.first.sex 
-    sex == 'M' ? name = "First route (men)" : name = "First route (women)"
-    list = List.create(event_id: id, round: 'el_1', sex: sex, name: name)
+    competitors.first.sex == 'M' ? sex = 'men' : sex = 'women' 
+    list = List.create(event_id: id, round: 'first_route', sex: sex)
     competitors.shuffle 
     competitors.each.with_index(1).map do |competitor, start_number|
-      list.scores << Score.create(competitor_id: competitor.id, start_number: start_number, score: 0)
+      list.scores.create(competitor_id: competitor.id, start_number: start_number, score: 0)
     end
     list
   end
   
-  def create_second_list(sex)
-    first_list_scores = list_scores('el_1', sex)
-    sex == 'M' ? name = "Second route (men)" : name = "Second route (women)"
-    list = List.create(event_id: id, round: 'el_2', sex: sex, name: name)
-    half = first_list_scores.size / 2 + 1
-    first_list_scores.size.even? ? start_number = half : start_number = half + 1 
-    first_list_scores.each.with_index(1) do |score, i|
+  def create_second_list(first_list)
+    list = List.create(event_id: id, round: 'second_route', sex: first_list.sex)
+    half = first_list.scores.size / 2 + 1
+    first_list.scores.size.even? ? start_number = half : start_number = half + 1 
+    first_list.scores.each.with_index(1) do |score, i|
       start_number = 1 if i == half
-      list.scores << Score.create(competitor_id: score.competitor_id, start_number: start_number, score: 0)
+      list.scores.create(competitor_id: score.competitor_id, start_number: start_number, score: 0)
       start_number += 1 
     end
   end 
   
-  def create_finals_list(sex, comps_number)
-    comps_number == 8 ? round = 'f' : round = 'sf'
-    if list(round, sex).nil? && eliminations_lists.empty?
-      raise StandardError.new('There are no scores in previous round!')
-    end
-    if status == 'semi_finals' && round_scores('sf').any? { |score| score.score == 0 }
-      raise StandardError.new('Every score has to be greater than zero!')
+  def create_semi_finals_list(sex)
+    sex == 'men' ? comp_sex = 'M' : comp_sex = 'F' 
+    results = eliminations_results.sex(comp_sex)
+    competitors = select_competitors(results, 26)
+    create_list(competitors, 'semi_finals', sex)
+  end 
+  
+  def create_finals_list(sex)
+    if status == "semi_finals" 
+      results = list_scores('semi_finals', sex)
+    else 
+      sex == 'men' ? comp_sex = 'M' : comp_sex = 'F'
+      results = eliminations_results.sex(comp_sex)
     end 
-    status == "semi_finals" ? results = list_scores('sf', sex) : results = eliminations_results.sex(sex)
-    finalists = select_competitors(results, comps_number)
-    set_starting_numbers(finalists, round, sex)
+    competitors = select_competitors(results, 8)
+    create_list(competitors, 'finals', sex)
   end
   
   def select_competitors(results, comps_number)
@@ -96,18 +90,21 @@ class Event < ApplicationRecord
     end  
   end
   
-  def set_starting_numbers(finalists, round, sex)
-    name = define_name(round, sex) 
-    list = List.create(event_id: id, round: round, sex: sex, name: name)
-    finalists.sort_by { |finalist| finalist.place }.reverse.each.with_index(1).map do |finalist, i| 
-      list.scores << Score.create(competitor_id: finalist.competitor_id, start_number: i, score: 0)
+  def create_list(comps, round, sex)
+    list = List.create(event_id: id, round: round, sex: sex)
+    comps.sort_by { |comp| comp.place }.reverse.each.with_index(1).map do |comp, i| 
+      list.scores.create(competitor_id: comp.competitor_id, start_number: i, score: 0)
     end
-    list
   end
   
-  def define_name(round, sex)
-     sex == 'M' ? part = "(men)" : part = "(women)"
-     round == 'f' ? name = "Finals #{part}" : name = "Semi-Finals #{part}"
-  end
+  def some_conditions 
+    if status == 'semi_finals' && round_scores('sf').any? { |score| score.score == 0 }
+      raise StandardError.new('Every score has to be greater than zero!')
+    end 
+    
+    if list('finals', sex).nil? && eliminations_lists.empty?
+      raise StandardError.new('There are no scores in previous round!')
+    end
+  end 
   
 end

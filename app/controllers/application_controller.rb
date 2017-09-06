@@ -29,4 +29,8 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, alert: "It's not your event!" unless @event.user_id == current_user.id
   end
   
+  def correct_scores?(lists)
+    lists.all? { |list| list.scores.all? { |score| score.score > 0 } }
+  end 
+  
 end

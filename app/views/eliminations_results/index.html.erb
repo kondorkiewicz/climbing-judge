@@ -28,7 +28,6 @@
 <div class="row text-center">
   <p>Are we doing Semi-Finals?</p>
   <p>Or you want to go straight to the Finals?</p>
-  <%= link_to "Semi Finals", create_finals_lists_event_path(comps_number: 26), class: 'btn btn-lg btn-success' %>
-
-  <%= link_to "Finals", create_finals_lists_event_path(comps_number: 8), class: 'btn btn-lg btn-success' %>
+  <%= link_to "Semi Finals", create_semi_finals_lists_event_path, class: 'btn btn-lg btn-success' %>
+  <%= link_to "Finals", create_finals_lists_event_path, class: 'btn btn-lg btn-success' %>
 </div>

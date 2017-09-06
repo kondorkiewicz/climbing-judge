@@ -12,13 +12,6 @@
     <%= link_to "#{list.name}", list_path(list, format: "pdf"), class: 'list-group-item' %>
   <% end %>
   
-  <% if !@event.round_lists('semi-finals').empty? %>
-  <li class="list-group-item"><h4>Semi-Finals Results (PDF)</h4></li>
-    <% @event.finals_lists('sf').each do |list| %>
-      <%= link_to "#{list.name}", list_path(list, format: "pdf", type: "results"), class: "list-group-item" %>
-    <% end %> 
-  <% end %>
-  
   <li class="list-group-item danger"><h4>Danger</h4></li>
   <%= link_to "Delete #{@event.status.titleize} lists", send("delete_#{@event.status}_lists_event_path"), class: 'list-group-item',
                 data: { confirm: "Are you sure?" } %>
@@ -30,7 +23,7 @@
     <%= render partial: 'scores/scores', locals: {scores: @m.start_list, name: "#{@m.name} scores" } %> 
   </div>
 
-  <div id="finals_men" class="col-md-6">
+  <div id="semi_finals_men" class="col-md-6">
     <%= render partial: 'scores/results', locals: {results: @m.results, name: "#{@m.name} results" } %> 
   </div>
 
@@ -42,13 +35,13 @@
     <%= render partial: 'scores/scores', locals: {scores: @f.start_list, name: "#{@f.name} scores" } %> 
   </div>
 
-  <div id="finals_women" class="col-md-6">
+  <div id="semi_finals_women" class="col-md-6">
     <%= render partial: 'scores/results', locals: {results: @f.results, name: "#{@f.name} results" } %>
   </div>
     
 </div>
 
 <div class="row text-center">
-    <%= link_to "Competitions Results", compute_results_event_path, 
-            class: 'btn btn-lg btn-success' %>
+    <%= link_to "Create Finals Lists", create_finals_lists_event_path, 
+          class: 'btn btn-lg btn-success' %>
 </div>

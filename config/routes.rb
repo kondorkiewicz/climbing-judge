@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       get 'eliminations', controller: 'eliminations'
       get 'compute_eliminations_results', controller: 'eliminations_results'
       get 'eliminations_results', to: 'eliminations_results#index'
+      get 'create_semi_finals_lists', controller: 'semi_finals'
       get 'create_finals_lists', controller: 'finals'
       get 'semi_finals', controller: 'semi_finals'
       get 'finals', controller: 'finals'

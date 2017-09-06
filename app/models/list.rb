@@ -2,6 +2,10 @@ class List < ApplicationRecord
   belongs_to :event
   has_many :scores, :dependent => :destroy
   
+  def name 
+    "#{round.titleize} (#{sex})"
+  end
+  
   def start_list
     scores.sort_by { |score| score.start_number }
   end
