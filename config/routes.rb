@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :sessions, only: :create
 
   resources :events, except: [:edit, :update] do
+    resources :competitors, only: [:index, :create, :destroy]
     resource :eliminations, only: [:show, :create, :destroy]
     resource :semi_finals, only: [:show, :create, :destroy]
     resource :finals, only: [:show, :create, :destroy]
