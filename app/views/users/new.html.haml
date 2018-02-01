@@ -1,0 +1,22 @@
+.text-center
+  = form_for @user do |f|
+    - if @user.errors.any?
+      .error_messages
+        %h2 Form is invalid
+        %ul
+          - @user.errors.full_messages.each do |message|
+            %li= message
+    .form-group
+      = f.label :email
+      %br/
+      = f.text_field :email
+    .form-group
+      = f.label :password
+      %br/
+      = f.password_field :password
+    .form-group
+      = f.label :password_confirmation
+      %br/
+      = f.password_field :password_confirmation
+    .form-group
+      = f.submit :Submit, class: "btn btn-primary"

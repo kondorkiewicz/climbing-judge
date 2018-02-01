@@ -1,0 +1,12 @@
+.panel.panel-primary
+  .panel-heading.text-center
+    %strong= local_assigns[:name]
+  .panel-body
+    %table#competitors.table.table-condensed.table-hover
+      %thead
+        %tr
+          %th Firstname
+          %th Lastname
+          %th Club
+          %th Birthdate
+      = render partial: 'competitors/competitor', collection: competitors, as: :competitor

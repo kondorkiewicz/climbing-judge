@@ -1,0 +1,13 @@
+.panel.panel-default
+  .panel-heading
+    %h4= local_assigns[:name]
+  .panel-body
+    %table.table.table-condensed.table-hover
+      %thead
+        %tr
+          %th Place:
+          %th Name:
+          %th 1st route place:
+          %th 2nd route place:
+          %th Points:
+      = render partial: 'eliminations_result', collection: eliminations_results, as: :result

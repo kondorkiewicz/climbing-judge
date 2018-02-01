@@ -1,0 +1,5 @@
+%tbody
+  %tr{"data-href" => "#{competitor_path(event_result.competitor)}", :id => "#{event_result.id}"}
+    %td= event_result.place
+    %td= event_result.competitor.full_name
+    %td= event_result.points

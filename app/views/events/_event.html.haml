@@ -1,0 +1,5 @@
+%tbody
+  %tr{"data-href" => "#{event_path(event)}", :id => "#{event.id}"}
+    %td= event.name
+    %td= event.place
+    %td= event.created_at.strftime("%d/%m/%Y")

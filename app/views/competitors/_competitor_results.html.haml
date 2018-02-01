@@ -1,0 +1,15 @@
+.panel.panel-primary
+  .panel-heading.text-center
+    %strong
+      = @competitor.name
+      = @competitor.surname
+  .panel-body
+    %table#competitors.table.table-condensed.table-hover
+      %thead
+        %tr
+          %th Event name
+          %th Event place
+          %th Event date
+          %th Place
+          %th Points
+      = render partial: 'competitors/competitor_result', collection: @results, as: :result

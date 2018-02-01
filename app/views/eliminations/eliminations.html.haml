@@ -1,0 +1,41 @@
+- content_for :sidebar do
+  #scores_remaining
+    %li.list-group-item
+      %h4 Eliminations
+      (scores remaining: #{scores_remaining([@m1, @f1, @m2, @f2])})
+  #buttons
+    %a#f1-btn.list-group-item.active{:href => "#"}= @f1.name
+    %a#m1-btn.list-group-item.active{:href => "#"}= @m1.name
+    %a#f2-btn.list-group-item{:href => "#"}= @f2.name
+    %a#m2-btn.list-group-item{:href => "#"}= @m2.name
+  %li.list-group-item
+    %h4 Starting Lists (PDF)
+  - @event.eliminations_lists.reverse.each do |list|
+    = link_to "#{list.name}", list_path(list, format: "pdf"), class: 'list-group-item'
+  %li.list-group-item.danger
+    %h4 Danger
+  = link_to "Delete eliminations lists", delete_eliminations_lists_event_path, class: 'list-group-item', |
+    data: { confirm: "Are you sure?" }                                                                   |
+#f1.row
+  #f1_scores.col-md-6
+    = render partial: 'scores/scores', locals: { scores: @f1.start_list, name: "#{@f1.name} scores" }
+  #first_route_women.col-md-6
+    = render partial: 'scores/results', locals: {results: @f1.results, name: "#{@f1.name} results" }
+#m1.row
+  #m1_scores.col-md-6
+    = render partial: 'scores/scores', locals: {scores: @m1.start_list, name: "#{@m1.name} scores" }
+  #first_route_men.col-md-6
+    = render partial: 'scores/results', locals: {results: @m1.results, name: "#{@m1.name} results" }
+#f2.row
+  #f2_scores.col-md-6
+    = render partial: 'scores/scores', locals: { scores: @f2.start_list, name: "#{@f2.name} scores" }
+  #second_route_women.col-md-6
+    = render partial: 'scores/results', locals: {results: @f2.results, name: "#{@f2.name} results" }
+#m2.row
+  #m2_scores.col-md-6
+    = render partial: 'scores/scores', locals: { scores: @m2.start_list, name: "#{@m2.name} scores" }
+  #second_route_men.col-md-6
+    = render partial: 'scores/results', locals: {results: @m2.results, name: "#{@m2.name} results" }
+.row.text-center
+  = link_to "Eliminations Results", compute_eliminations_results_event_path, |
+    class: 'btn btn-lg btn-success'                                          |

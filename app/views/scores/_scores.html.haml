@@ -1,0 +1,11 @@
+.panel.panel-default
+  .panel-heading
+    %h4= local_assigns[:name]
+  .panel-body
+    %table.table.table-condensed.table-hover
+      %thead
+        %tr
+          %th.col-md-1 #
+          %th.col-md-3 Name
+          %th.col-md-3 Score
+      = render partial: 'scores/score', collection: scores, as: :score

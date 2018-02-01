@@ -1,0 +1,31 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title ClimbingJudge
+    = csrf_meta_tags
+    %link{:href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", :rel => "stylesheet"}/
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    = render 'menu2'
+    .row-offcanvas.row-offcanvas-left
+      - flash.each do |key, value|
+        %div{:class => "alert alert-#{key}"}= value
+      - if content_for?(:sidebar_content)
+        = render "sidebar"
+      #main
+        .col-md-12
+          %p.visible-xs
+            %button.btn.btn-primary.btn-xs{"data-toggle" => "offcanvas", :type => "button"}
+              %i.glyphicon.glyphicon-chevron-left
+          = yield
+    / /row-offcanvas
+    /
+      Bootstrap core JavaScript
+      \==================================================
+    / Placed at the end of the document so the pages load faster
+    :javascript
+      window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
+    %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"}
+    %script{:src => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"}

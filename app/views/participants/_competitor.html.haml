@@ -1,0 +1,7 @@
+%tbody
+  %tr{:id => "#{competitor.id}"}
+    %td= competitor.name
+    %td= competitor.surname
+    %td= competitor.club
+    %td= link_to "Add", event_participants_path(@event, competitor_id: competitor.id), |
+        method: :post, class: 'btn btn-xs btn-success', remote: true                   |

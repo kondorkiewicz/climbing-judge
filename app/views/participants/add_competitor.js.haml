@@ -1,0 +1,12 @@
+$('tr##{@competitor.id}').fadeOut();
+
+
+$('#event_men').html('#{j render partial: "delete_competitors", locals: {competitors: @event.men, name: "Men"}}');
+
+
+$('#event_women').html('#{j render partial: "delete_competitors", locals: {competitors: @event.women, name: "Women"}}');
+
+checkForHiddenDiv('event_men');
+checkForHiddenDiv('event_women');
+
+$("#eliminations").load(location.href+" #eliminations&gt;*","");

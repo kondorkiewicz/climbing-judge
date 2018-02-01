@@ -1,0 +1,6 @@
+= render 'sidebar_content'
+.row
+  .col-sm-6
+    = render partial: 'event_results', locals: {event_results: @men, name: 'Men' }
+  .col-sm-6
+    = render partial: 'event_results', locals: {event_results: @women, name: 'Women' }

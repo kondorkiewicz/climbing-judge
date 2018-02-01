@@ -1,0 +1,5 @@
+#sidebar.sidebar-offcanvas
+  .col-md-12
+    %h4= @event.nil? ? "" : (@event.name unless @event.status == "finished")
+    %ul.nav.nav-pills.nav-stacked
+      = yield :sidebar

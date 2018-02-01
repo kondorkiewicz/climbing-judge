@@ -1,0 +1,13 @@
+- if current_user && current_user.admin
+  = content_for :sidebar do
+    .text-center
+      %li.list-group-item= link_to "Create Event", new_event_path, class: 'btn btn-lg btn-success'
+    - unless current_user.events.empty?
+      %li.list-group-item
+        %h4 Your events:
+      - current_user.events.sort_by { |e| e.updated_at }.reverse.each do |event|
+        %li.list-group-item
+          %div{:style => "display: inline-block;"}
+            = link_to "#{event.name} (#{event.status})", event_path(event)
+            = link_to "Delete", event_path(event), method: :delete,                            |
+              class: "btn btn-xs btn-danger delete_button", data: { confirm: "Are you sure?" } |

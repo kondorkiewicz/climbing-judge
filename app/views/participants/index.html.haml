@@ -1,0 +1,23 @@
+= render 'sidebar_content'
+.container-fluid
+  .row
+    %h2.text-center Adding Competitors
+    %br/
+    .col-sm-6
+      .panel.panel-primary
+        .panel-heading.text-center
+          %strong Search in database
+        .panel-body.text-center
+          = form_tag event_participants_path, method: :get, id: "competitors_search", remote: true do
+            %p
+              = text_field_tag :search, params[:search]
+      #competitors_from_db.hidden
+        = render partial: 'competitors', object: @competitors
+      = render partial: 'competitors/form', object: Competitor.new, as: :competitor, locals: {event_id: @event.id}
+    .col-sm-6
+      #event_men.hidden
+        = render partial: 'delete_competitors', locals: { competitors: @event.men, name: "Men" }
+      #event_women.hidden
+        = render partial: 'delete_competitors', locals: {competitors: @event.women, name: "Women"}
+  .row.text-center
+    = link_to 'Create Eliminations Lists',  event_eliminations_path, class: 'btn btn-lg btn-success'

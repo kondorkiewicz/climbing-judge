@@ -1,0 +1,3 @@
+var name = '#{"#{@score.list.round}_#{@score.list.sex}"}'
+$('#' + name).html('#{j render partial: "scores/results", locals: {results: @score.list.results, name: "#{@score.list.name} results" }}');
+$("#scores_remaining").load(window.location.href + " #scores_remaining");

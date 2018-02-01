@@ -1,0 +1,13 @@
+- score.score == 0 ? show_score = nil : show_score = score.score
+%tbody
+  %tr
+    %td= score.start_number
+    %td= score.competitor.full_name
+    %td
+      = form_for score, remote: true do
+        %table
+          %tr
+            %td= text_field_tag :score, show_score, size: 3
+            %td.col-md-1= submit_tag 'save score', class: 'btn btn-sm btn-primary', method: :patch
+            %td= hidden_field_tag(:event_id, params[:id])
+          %tr

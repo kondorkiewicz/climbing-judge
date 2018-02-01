@@ -1,0 +1,19 @@
+%nav.navbar.navbar-inverse
+  .container-fluid
+    .navbar-header
+      %button.navbar-toggle{"data-target" => "#myNavbar", "data-toggle" => "collapse", :type => "button"}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %a.navbar-brand{:href => "/"} Climbing Judge
+    #myNavbar.collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        %li= link_to "Events", events_path
+        %li= link_to "Competitors", competitors_path
+      %ul.nav.navbar-nav.navbar-right
+        - if current_user.nil?
+          %li= link_to 'Sign Up', signup_path
+          %li= link_to "Log In", login_path
+        - else
+          %li
+            = link_to "Log Out", logout_path, method: :delete

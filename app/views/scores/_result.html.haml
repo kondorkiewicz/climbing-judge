@@ -1,0 +1,7 @@
+%tbody
+  %tr
+    - if result.score > 0
+      %td= result.place
+      %td= result.competitor.full_name
+      %td= result.score
+      %td= result.ex_points

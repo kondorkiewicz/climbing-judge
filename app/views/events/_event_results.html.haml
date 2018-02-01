@@ -1,0 +1,11 @@
+.panel.panel-primary
+  .panel-heading.text-center
+    %strong= local_assigns[:name]
+  .panel-body
+    %table#competitors.table.table-condensed.table-hover
+      %thead
+        %tr
+          %th Place
+          %th Name
+          %th Points
+      = render partial: 'event_result', collection: event_results, as: :event_result

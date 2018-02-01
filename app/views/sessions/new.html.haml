@@ -1,0 +1,10 @@
+%br/
+.text-center
+  = form_tag sessions_path, class: "form-inline" do
+    = label_tag :email, "Email"
+    .input-group.mb-2.mr-sm-2.mb-sm-0
+      .input-group-addon @
+      = text_field_tag :email, params[:email], class: "form-control"
+    = label_tag :password, "Password"
+    = password_field_tag :password, "", class: "form-control mb-2 mr-sm-2 mb-sm-0"
+    = submit_tag "Log in", class: 'btn btn-primary'
