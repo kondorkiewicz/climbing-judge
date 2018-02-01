@@ -13,17 +13,19 @@ class CompetitorsController < ApplicationController
 
   def create
     @competitor = Competitor.new(competitor_params)
-    @event = Event.find(params[:event_id])
     respond_to do |format|
       if @competitor.save
-        @event.competitors << @competitor if @event
-        format.html { redirect_to event_competitors_path(@event) }
+        format.html { redirect_to competitors_path }
         format.json { render :show, status: :created, location: @competitor }
       else
-        format.html { redirect_to event_competitors_path(@event), danger: 'Competitor is invalid!' }
+        format.html { render 'new', locals: { competitor: @competitor } }
         format.json { render json: @competitor.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def new
+    @competitor = Competitor.new
   end
 
   private

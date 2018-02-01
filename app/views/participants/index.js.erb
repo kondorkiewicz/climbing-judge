@@ -1,0 +1,8 @@
+<% if @competitors.empty? %>
+  $('#competitors_from_db').addClass("hidden");
+<% else %>
+  $('#competitors_from_db').removeClass("hidden");
+  $('#competitors_from_db').html("<%= j render partial: 'competitors', object: @competitors %>");
+<% end %>
+checkForHiddenDiv('event_men');
+checkForHiddenDiv('event_women');

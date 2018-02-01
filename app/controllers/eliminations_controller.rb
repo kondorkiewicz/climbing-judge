@@ -1,7 +1,7 @@
 class EliminationsController < ApplicationController
   before_action :set_event, :authorize, :authorize_event, :check_finished_status
-  before_action except: [:create_eliminations_lists] { check_status('eliminations') }
-  before_action only: [:create_eliminations_lists] { check_status('competitors') }
+  before_action except: [:create] { check_status('eliminations') }
+  before_action only: [:create] { check_status('participants') }
 
   def show
       @m1 = @event.list('first_route', 'men')
@@ -17,7 +17,7 @@ class EliminationsController < ApplicationController
       redirect_to eliminations_event_path,
         info: "Eliminations lists have been created."
     else
-      redirect_to competitors_event_path,
+      redirect_to event_participants_path,
         danger: "There should be at least two competitors in each category!"
     end
   end

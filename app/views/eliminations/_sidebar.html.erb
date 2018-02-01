@@ -1,0 +1,18 @@
+<div id="scores_remaining">
+  <li class="list-group-item"><h4>Eliminations</h4>
+    (scores remaining: <%= scores_remaining([@m1, @f1, @m2, @f2]) %>)
+  </li>
+</div>
+<div id="buttons">
+  <a href='#' id='f1-btn' class='list-group-item active'><%= @f1.name %></a>
+  <a href='#' id='m1-btn' class='list-group-item active'><%= @m1.name %></a>
+  <a href='#' id='f2-btn' class='list-group-item'><%= @f2.name %></a>
+  <a href='#' id='m2-btn' class='list-group-item'><%= @m2.name %></a>
+</div>
+<li class="list-group-item"><h4>Starting Lists (PDF)</h4></li>
+<% @event.eliminations_lists.reverse.each do |list| %>
+  <%= link_to "#{list.name}", list_path(list, format: "pdf"), class: 'list-group-item' %>
+<% end %>
+<li class="list-group-item danger"><h4>Danger</h4></li>
+<%= link_to "Delete eliminations lists", delete_eliminations_lists_event_path, class: 'list-group-item',
+              data: { confirm: "Are you sure?" } %>

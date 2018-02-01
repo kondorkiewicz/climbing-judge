@@ -1,12 +1,14 @@
 <%= render 'sidebar_content' %>
 
+<%= button_to 'Add Competitor', new_competitor_path, method: :get, class: 'btn btn-primary' %>
+<br />
 <div class="row">
-  
+
   <div class="col-sm-6">
     <%= render partial: 'competitors', locals: {competitors: @men, name: 'Men' } %>
   </div>
   <div class="col-sm-6">
     <%= render partial: 'competitors', locals: {competitors: @women, name: 'Women' } %>
   </div>
-  
+
 </div>

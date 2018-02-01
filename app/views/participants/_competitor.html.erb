@@ -3,7 +3,7 @@
     <td><%= competitor.name %></td>
     <td><%= competitor.surname %></td>
     <td><%= competitor.club %></td>
-    <td><%= link_to "Add", add_competitor_event_path(@event, competitor_id: competitor.id), 
+    <td><%= link_to "Add", event_participants_path(competitor_id: competitor.id), method: :post,
             class: 'btn btn-xs btn-success', remote: true %></td>
   </tr>
 </tbody>
